@@ -1,7 +1,11 @@
 # 👕 StyleHub - E-commerce de Moda Urbana
 
 ## 📝 Descripción
-**StyleHub** es una plataforma de comercio electrónico diseñada para la venta de ropa y accesorios. Este proyecto universitario simula un entorno real de retail, permitiendo a los usuarios explorar colecciones, gestionar un carrito de compras y realizar pedidos de forma segura. Se enfoca en una experiencia de usuario fluida con un diseño moderno y minimalista.
+*StyleHub* es una plataforma de comercio electrónico enfocada en la venta de ropa y accesorios de moda urbana.
+
+Este proyecto universitario simula un entorno real de retail, permitiendo a los usuarios explorar productos, gestionar un carrito de compras y realizar pedidos.
+
+El objetivo es ofrecer una experiencia moderna, intuitiva y funcional.
 
 ## 🎯 Público Objetivo
 Nuestra plataforma está dirigida a:
@@ -23,38 +27,45 @@ Para el diseño y flujo de navegación, nos basamos en:
 
 6.  ## 🚀 Tecnologías Utilizadas
 
-### Frontend
-* **Next.js 14/15:** Framework de React con SSR.
-* **Tailwind CSS:** Estilizado moderno y responsivo.
-* **shadcn/ui:** Componentes de UI accesibles.
-* **Zustand:** Gestión de estado global (carrito).
+### 🖥️ Frontend
 
-### Backend & Base de Datos
-* **Node.js / Express:** Servidor y API RESTful.
-* **TypeScript:** Tipado seguro en todo el proyecto.
-* **PostgreSQL:** Base de datos relacional.
-* **Prisma ORM:** Modelado de datos y migraciones.
+* *HTML5:* Estructura de las páginas web
+* *CSS3:* Estilos y diseño visual responsivo
+* *JavaScript:* Interactividad en el cliente
 
-### Otros
-* **Docker:** Contenerización del entorno.
-* **Vitest:** Pruebas unitarias.
+### ⚙️ Backend
+
+* *Node.js:* Entorno de ejecución para el servidor
+* *Express:* Framework para la creación de rutas y manejo de peticiones
+
+### 🧩 Motor de Plantillas
+
+* *EJS:* Permite generar páginas dinámicas reutilizando componentes
 
 ## ⚙️ Instalación y Uso
 
-1.  **Clonar el repositorio:**
-    ```bash
-    (https://github.com/Esparta26/Desarrollo-web-)
-    ```
-2.  **Instalar dependencias:**
-    ```bash
-    npm install
-    ```
-3.  **Configurar variables de entorno:**
-    Crea un archivo `.env` basado en `.env.example` con tus credenciales de base de datos.
-4.  **Ejecutar en desarrollo:**
-    ```bash
-    npm run dev
-    ```
+1. Clonar el repositorio:
+
+bash
+git clone https://github.com/Esparta26/Desarrollo-web-.git
+
+
+2. Entrar al proyecto:
+
+bash
+cd Desarrollo-web-
+
+
+3. Instalar dependencias:
+
+bash
+npm install
+
+
+4. Ejecutar el servidor:
+
+bash
+npm start
 
 ## 📋 Tablero de Trabajo (Sprints)
 https://trello.com/invite/b/69c5a7d20de0257d37504fbd/ATTIb243740c2941c4bd41245728f81f5161656DAB62/sprint-3-stylehub
