@@ -25,6 +25,25 @@ Para el diseño y flujo de navegación, nos basamos en:
 4.  **ASOS:** Diseño de tarjetas de producto interactivas. [Link](https://www.asos.com)
 5.  **StockX:** Sistema de autenticación y seguridad visual. [Link](https://stockx.com)
 
+## 🖼️ Wireframes y Diseño Visual
+
+A continuación, presentamos los bocetos iniciales que definieron la estructura y el flujo de navegación de nuestras vistas principales:
+
+* **Home (Inicio):**
+  ![Wireframe Home](https://wireframe.cc/roGFJN)
+
+* **Detalle del Producto:**
+  ![Wireframe Detalle](https://wireframe.cc/U1WkKi)
+
+* **Carrito de Compras:**
+  ![Wireframe Carrito](https://wireframe.cc/C5rFD8)
+
+* **Registro:**
+  ![Wireframe Registro](https://wireframe.cc/TsOP3z)
+
+* **Login:**
+  ![Wireframe Login](https://wireframe.cc/7Phuqr)
+
 6.  ## 🚀 Tecnologías Utilizadas
 
 ### 🖥️ Frontend
