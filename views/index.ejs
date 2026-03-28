@@ -19,7 +19,7 @@
                     <p class="text-gray-600 mb-4 italic">$<%= product.price.toLocaleString('es-CO') %></p>
                     
                     <div class="flex flex-col gap-2">
-                        <a href="/productDetail" class="text-center bg-black text-white py-2 rounded-lg font-bold hover:bg-gray-800 transition text-sm">
+                        <a href="/productDetail/<%= product.id %>" class="text-center bg-black text-white py-2 rounded-lg font-bold hover:bg-gray-800 transition text-sm">
                             Ver detalle
                         </a>
                     </div>
