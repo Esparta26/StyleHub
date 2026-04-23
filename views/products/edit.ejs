@@ -10,7 +10,7 @@
             <p class="text-gray-500 mt-2 font-medium">Actualizando: <span class="font-bold text-black"><%= product.name %></span></p>
         </div>
 
-        <form action="/products/<%= product.id %>?_method=PUT" method="POST" class="space-y-6">
+        <form action="/edit/<%= product.id %>?_method=PUT" method="POST" class="space-y-6">
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="col-span-2">
@@ -43,7 +43,7 @@
 
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">URL de la Imagen</label>
-                    <input type="text" name="image" value="<%= product.image %>" required
+                    <input type="text" name="img" value="<%= product.img %>" required
                         class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none">
                 </div>
             </div>
