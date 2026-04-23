@@ -15,10 +15,12 @@
   },
   {
     "id": 3,
-    "name": "Camiseta Boxy Fit",
+    "name": "Camiseta Basica Fit",
     "price": 65000,
     "img": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=300&q=80",
-    "description": "Nuestra Camiseta Boxy Fit está diseñada para ofrecer el máximo confort sin perder el estilo urbano. Fabricada en algodón premium de alto gramaje para una caída perfecta."
+    "description": "Nuestra Camiseta Boxy Fit está diseñada para ofrecer el máximo confort sin perder el estilo urbano. Fabricada en algodón premium de alto gramaje para una caída perfecta.",
+    "size": "L",
+    "category": "camisetas"
   },
   {
     "id": 4,
