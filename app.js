@@ -128,3 +128,5 @@ app.listen(PORT, () => {
   console.log(`🚀 StyleHub activo en http://localhost:${PORT}`);
   console.log("-------------------------------------------");
 });
+
+// Entrega final del Sprint 4 lista
