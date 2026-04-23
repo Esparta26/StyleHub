@@ -33,5 +33,12 @@
     "price": 300000,
     "img": "https://media.falabella.com/falabellaCO/73341168_1/w=1200,h=1200,fit=pad",
     "description": "Linda camiseta"
+  },
+  {
+    "id": 6,
+    "name": "Pantalones Tipo Cargo",
+    "price": 99990,
+    "img": "https://colombia.bioweb.co/cdn/shop/products/n.jpg?v=1754676441",
+    "description": "Pantalón cargo urbano diseñado para quienes buscan estilo y funcionalidad en un solo outfit. Confeccionado en tela resistente y cómoda, cuenta con múltiples bolsillos que aportan un look auténtico y práctico. Su ajuste moderno se adapta perfectamente al cuerpo, ideal para combinar con hoodies, camisetas oversized o sneakers. Perfecto para el día a día, manteniendo siempre una vibra streetwear fresca y versátil."
   }
 ]
