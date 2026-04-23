@@ -7,6 +7,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -46,34 +47,31 @@ app.get("/productCart", (req, res) => {
 
 app.get("/productDetail/:id", (req, res) => {
   const productos = getProducts();
-  const id = req.params.id;
-  const producto = productos.find((p) => p.id == id);
+  const producto = productos.find((p) => p.id == req.params.id);
   res.render("productDetail", { producto });
 });
 
 app.get("/create", (req, res) => {
-  res.render("create");
+  res.render("products/create");
 });
 
 app.get("/edit/:id", (req, res) => {
   const productos = getProducts();
   const producto = productos.find((p) => p.id == req.params.id);
-  res.render("edit", { producto });
+  res.render("products/edit", { product: producto });
 });
 
 app.post("/login", (req, res) => {
-  console.log("Usuario intentando entrar:", req.body.email);
   res.redirect("/home");
 });
 
 app.post("/register", (req, res) => {
-  console.log("Nuevo registro:", req.body.fullName);
   res.redirect("/");
 });
 
 app.post("/create", (req, res) => {
   const productos = getProducts();
-  const { name, price, img, description } = req.body;
+  const { name, price, img, description, size, category } = req.body;
 
   const nuevoProducto = {
     id: productos.length > 0 ? productos[productos.length - 1].id + 1 : 1,
@@ -81,11 +79,12 @@ app.post("/create", (req, res) => {
     price: Number(price),
     img,
     description,
+    size,
+    category
   };
 
   productos.push(nuevoProducto);
   saveProducts(productos);
-
   res.redirect("/home");
 });
 
@@ -94,11 +93,15 @@ app.put("/edit/:id", (req, res) => {
   const index = productos.findIndex((p) => p.id == req.params.id);
 
   if (index !== -1) {
-    productos[index].name = req.body.name;
-    productos[index].price = Number(req.body.price);
-    productos[index].img = req.body.img;
-    productos[index].description = req.body.description;
-
+    productos[index] = {
+      id: Number(req.params.id),
+      name: req.body.name,
+      price: Number(req.body.price),
+      img: req.body.img,
+      description: req.body.description,
+      size: req.body.size,
+      category: req.body.category
+    };
     saveProducts(productos);
   }
 
@@ -107,16 +110,12 @@ app.put("/edit/:id", (req, res) => {
 
 app.delete("/delete/:id", (req, res) => {
   let productos = getProducts();
-
   productos = productos.filter((p) => p.id != req.params.id);
-
   saveProducts(productos);
   res.redirect("/home");
 });
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log("-------------------------------------------");
   console.log(`🚀 StyleHub activo en http://localhost:${PORT}`);
-  console.log("-------------------------------------------");
 });
