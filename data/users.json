@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "firstName": "Raúl",
+    "lastName": "Morales",
+    "email": "raul@stylehub.com",
+    "password": "admin123",
+    "category": "admin"
+  }
+]

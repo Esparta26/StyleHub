@@ -1,0 +1,67 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<main class="container mx-auto px-6 py-16 flex-grow flex justify-center">
+    <div class="max-w-2xl w-full bg-white p-10 rounded-3xl shadow-2xl border border-gray-100">
+        
+        <div class="mb-10 border-b border-gray-100 pb-6 text-center">
+            <span class="text-xs font-black uppercase tracking-[0.3em] text-gray-400 mb-2 block italic">Admin Mode</span>
+            <h2 class="text-4xl font-black italic tracking-tighter uppercase">Editar Drop</h2>
+            <p class="text-gray-500 mt-2 font-medium">Actualizando: <span class="font-bold text-black"><%= product.name %></span></p>
+        </div>
+
+        <form action="/products/<%= product.id %>?_method=PUT" method="POST" class="space-y-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="col-span-2">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">Nombre de la Prenda</label>
+                    <input type="text" name="name" value="<%= product.name %>" required
+                        class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">Precio ($)</label>
+                    <input type="number" name="price" value="<%= product.price %>" required
+                        class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">Categoría</label>
+                    <select name="category" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none appearance-none">
+                        <option value="camisetas" <%= product.category === 'camisetas' ? 'selected' : '' %>>Camisetas</option>
+                        <option value="hoodies" <%= product.category === 'hoodies' ? 'selected' : '' %>>Hoodies & Buzos</option>
+                        <option value="pantalones" <%= product.category === 'pantalones' ? 'selected' : '' %>>Pantalones</option>
+                        <option value="accesorios" <%= product.category === 'accesorios' ? 'selected' : '' %>>Accesorios</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">Talla</label>
+                    <input type="text" name="size" value="<%= product.size %>" required
+                        class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">URL de la Imagen</label>
+                    <input type="text" name="image" value="<%= product.image %>" required
+                        class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">Descripción</label>
+                <textarea name="description" rows="4" required
+                    class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none resize-none"><%= product.description %></textarea>
+            </div>
+
+            <div class="flex gap-4 pt-4">
+                <a href="/home" class="w-1/3 text-center bg-gray-200 text-gray-700 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-gray-300 transition">Cancelar</a>
+                <button type="submit" class="w-2/3 bg-black text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-gray-800 transition shadow-xl transform active:scale-95">
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

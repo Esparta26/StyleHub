@@ -1,5 +1,8 @@
 const express = require("express");
 const path = require("path");
+const fs = require("fs"); // 🆕 Módulo para leer/escribir archivos
+const methodOverride = require("method-override"); // 🆕 Módulo para habilitar PUT y DELETE
+
 const app = express();
 
 app.set("view engine", "ejs");
@@ -7,40 +10,23 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-const productos = [
-  {
-    id: 1,
-    name: 'Hoodie Oversize "Street"',
-    price: 120000,
-    img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=300&q=80",
-    description:
-      "Nuestro Hoodie Oversize Street está diseñado para brindar máxima comodidad sin perder el estilo urbano. Confeccionado en algodón premium de alto gramaje, ofrece una sensación cálida y una caída perfecta para un look moderno y relajado.",
-  },
-  {
-    id: 2,
-    name: "Zapatillas NYKE Jordan",
-    price: 95000,
-    img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=300&q=80",
-    description:
-      "Nuestras Zapatillas Nike Jordan combinan estilo icónico y comodidad superior. Diseñadas con materiales de alta calidad y una suela resistente, son perfectas para destacar en cualquier outfit urbano mientras disfrutas de un ajuste cómodo durante todo el día.",
-  },
-  {
-    id: 3,
-    name: "Camiseta Boxy Fit",
-    price: 65000,
-    img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=300&q=80",
-    description:
-      "Nuestra Camiseta Boxy Fit está diseñada para ofrecer el máximo confort sin perder el estilo urbano. Fabricada en algodón premium de alto gramaje para una caída perfecta.",
-  },
-  {
-    id: 4,
-    name: "Gorra Trucker Style",
-    price: 45000,
-    img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=300&q=80",
-    description:
-      "Nuestra Gorra Trucker Style está pensada para complementar tu outfit urbano con un toque clásico. Su diseño con malla trasera permite mayor ventilación, mientras su estructura firme mantiene un estilo auténtico y moderno.",
-  },
-];
+app.use(methodOverride("_method")); // 🆕 Le dice a Express que lea los ?_method=PUT/DELETE en los formularios
+
+// --- LÓGICA DE BASE DE DATOS JSON ---
+const productsFilePath = path.join(__dirname, "data", "products.json");
+
+// Función para leer los productos del archivo JSON
+const getProducts = () => {
+  const jsonFile = fs.readFileSync(productsFilePath, "utf-8");
+  return JSON.parse(jsonFile);
+};
+
+// Función para guardar los productos en el archivo JSON
+const saveProducts = (productos) => {
+  fs.writeFileSync(productsFilePath, JSON.stringify(productos, null, 2));
+};
+
+// --- RUTAS ---
 
 app.get("/", (req, res) => {
   res.render("login");
@@ -51,6 +37,7 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
+  const productos = getProducts(); // 🆕 Lee del JSON
   res.render("index", { items: productos });
 });
 
@@ -63,9 +50,9 @@ app.get("/productCart", (req, res) => {
 });
 
 app.get("/productDetail/:id", (req, res) => {
+  const productos = getProducts();
   const id = req.params.id;
   const producto = productos.find((p) => p.id == id);
-
   res.render("productDetail", { producto });
 });
 
@@ -74,6 +61,7 @@ app.get("/create", (req, res) => {
 });
 
 app.get("/edit/:id", (req, res) => {
+  const productos = getProducts();
   const producto = productos.find((p) => p.id == req.params.id);
   res.render("edit", { producto });
 });
@@ -88,32 +76,49 @@ app.post("/register", (req, res) => {
   res.redirect("/");
 });
 
+// 🆕 CREAR: Ahora guarda en el JSON
 app.post("/create", (req, res) => {
+  const productos = getProducts();
   const { name, price, img, description } = req.body;
 
   const nuevoProducto = {
-    id: productos.length + 1,
+    id: productos.length > 0 ? productos[productos.length - 1].id + 1 : 1, // Genera ID automático
     name,
-    price,
+    price: Number(price),
     img,
     description,
   };
 
   productos.push(nuevoProducto);
+  saveProducts(productos); // 👈 Guarda el archivo físicamente
 
   res.redirect("/home");
 });
 
-app.post("/edit/:id", (req, res) => {
-  const producto = productos.find((p) => p.id == req.params.id);
+// 🆕 EDITAR: Cambiado a app.put
+app.put("/edit/:id", (req, res) => {
+  const productos = getProducts();
+  const index = productos.findIndex((p) => p.id == req.params.id);
 
-  if (producto) {
-    producto.name = req.body.name;
-    producto.price = req.body.price;
-    producto.img = req.body.img;
-    producto.description = req.body.description;
+  if (index !== -1) {
+    productos[index].name = req.body.name;
+    productos[index].price = Number(req.body.price);
+    productos[index].img = req.body.img;
+    productos[index].description = req.body.description;
+    
+    saveProducts(productos); // 👈 Sobrescribe el JSON con los cambios
   }
 
+  res.redirect("/home");
+});
+
+// 🆕 ELIMINAR: La ruta que te faltaba
+app.delete("/delete/:id", (req, res) => {
+  let productos = getProducts();
+  // Filtra los productos, dejando todos menos el que queremos borrar
+  productos = productos.filter((p) => p.id != req.params.id);
+  
+  saveProducts(productos); // 👈 Guarda la lista actualizada
   res.redirect("/home");
 });
 
