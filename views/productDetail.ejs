@@ -1,23 +1,15 @@
-<%- include('partials/head') %> <%- include('partials/header') %>
+<%- include('partials/head') %> 
+<%- include('partials/header') %>
 
 <main class="container mx-auto px-6 py-16 flex-grow">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-    <div
-      class="rounded-3xl overflow-hidden bg-gray-100 shadow-sm transition hover:shadow-xl duration-500"
-    >
-      <img
-        src="<%= producto.img %>"
-        alt="<%= producto.name %>"
-        class="w-full h-full object-cover"
-      />
+    <div class="rounded-3xl overflow-hidden bg-gray-100 shadow-sm transition hover:shadow-xl duration-500">
+      <img src="<%= producto.img %>" alt="<%= producto.name %>" class="w-full h-full object-cover" />
     </div>
 
     <div class="flex flex-col h-full justify-center">
       <div class="mb-8 border-b border-gray-100 pb-8">
-        <span
-          class="text-xs font-black uppercase tracking-[0.3em] text-gray-400 mb-2 block italic"
-          >New Arrival</span
-        >
+        <span class="text-xs font-black uppercase tracking-[0.3em] text-gray-400 mb-2 block italic">New Arrival</span>
         <h2 class="text-5xl font-black italic tracking-tighter uppercase mb-2">
           <%= producto.name %>
         </h2>
@@ -27,63 +19,52 @@
       </div>
 
       <div class="mb-8">
-        <h3
-          class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4 italic"
-        >
+        <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4 italic">
           Descripción
         </h3>
         <p class="text-gray-600 leading-relaxed text-lg">
-          <p><%= producto.description %></p>
+          <%= producto.description %>
         </p>
       </div>
 
       <div class="mb-10">
-        <h3
-          class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4 italic"
-        >
+        <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4 italic">
           Seleccionar Talla
         </h3>
         <div class="flex gap-3">
-          <button
-            class="w-12 h-12 border-2 border-black flex items-center justify-center font-bold rounded-lg hover:bg-black hover:text-white transition"
-          >
+          <button class="w-12 h-12 border-2 border-black flex items-center justify-center font-bold rounded-lg hover:bg-black hover:text-white transition">
             S
           </button>
-          <button
-            class="w-12 h-12 border-2 border-black flex items-center justify-center font-bold rounded-lg hover:bg-black hover:text-white transition"
-          >
+          <button class="w-12 h-12 border-2 border-black flex items-center justify-center font-bold rounded-lg hover:bg-black hover:text-white transition">
             M
           </button>
-          <button
-            class="w-12 h-12 border-2 border-black bg-black text-white flex items-center justify-center font-bold rounded-lg"
-          >
+          <button class="w-12 h-12 border-2 border-black bg-black text-white flex items-center justify-center font-bold rounded-lg">
             L
           </button>
-          <button
-            class="w-12 h-12 border-2 border-black flex items-center justify-center font-bold rounded-lg hover:bg-black hover:text-white transition"
-          >
+          <button class="w-12 h-12 border-2 border-black flex items-center justify-center font-bold rounded-lg hover:bg-black hover:text-white transition">
             XL
           </button>
         </div>
       </div>
 
       <div class="space-y-4">
-        <button
-          class="w-full bg-black text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-gray-800 transition shadow-2xl transform active:scale-[0.98]"
-        >
+        <button class="w-full bg-black text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-gray-800 transition shadow-2xl transform active:scale-[0.98]">
           Agregar al carrito
         </button>
-        <a
-          href="/home"
-          class="block text-center text-gray-400 font-bold uppercase text-xs tracking-widest hover:text-black transition py-2"
-        >
+        <a href="/home" class="block text-center text-gray-400 font-bold uppercase text-xs tracking-widest hover:text-black transition py-2">
           Volver al catálogo
         </a>
-        <a 
-          href="/edit/<%= producto.id %>"
-          class="block mt-4 text-center bg-gray-200 text-black py-2 rounded-lg font-bold uppercase text-sm hover:bg-gray-300 transition">
-            Editar
-        </a>
+        
+        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100 mt-4">
+            <a href="/edit/<%= producto.id %>" class="w-full flex justify-center items-center text-center bg-gray-200 text-black py-3 rounded-lg font-bold uppercase text-sm hover:bg-gray-300 transition">
+              Editar
+            </a>
+            <form action="/delete/<%= producto.id %>?_method=DELETE" method="POST" class="w-full" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta prenda de StyleHub?');">
+              <button type="submit" class="w-full bg-red-600 text-white py-3 rounded-lg font-bold uppercase text-sm hover:bg-red-800 transition">
+                Eliminar
+              </button>
+            </form>
+        </div>
       </div>
     </div>
   </div>

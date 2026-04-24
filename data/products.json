@@ -30,13 +30,6 @@
     "description": "Nuestra Gorra Trucker Style está pensada para complementar tu outfit urbano con un toque clásico. Su diseño con malla trasera permite mayor ventilación, mientras su estructura firme mantiene un estilo auténtico y moderno."
   },
   {
-    "id": 5,
-    "name": "Camiseta Colombia  Mundial 2026",
-    "price": 300000,
-    "img": "https://media.falabella.com/falabellaCO/73341168_1/w=1200,h=1200,fit=pad",
-    "description": "Linda camiseta"
-  },
-  {
     "id": 6,
     "name": "Pantalones Tipo Cargo",
     "price": 99990,
