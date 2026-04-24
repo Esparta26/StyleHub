@@ -8,10 +8,12 @@
   },
   {
     "id": 2,
-    "name": "Zapatillas NYKE Jordan",
+    "name": "Zapatillas Tipo Jordan NYKE",
     "price": 95000,
     "img": "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=300&q=80",
-    "description": "Nuestras Zapatillas Nike Jordan combinan estilo icónico y comodidad superior. Diseñadas con materiales de alta calidad y una suela resistente, son perfectas para destacar en cualquier outfit urbano mientras disfrutas de un ajuste cómodo durante todo el día."
+    "description": "Nuestras Zapatillas Nike Jordan combinan estilo icónico y comodidad superior. Diseñadas con materiales de alta calidad y una suela resistente, son perfectas para destacar en cualquier outfit urbano mientras disfrutas de un ajuste cómodo durante todo el día.",
+    "size": "X",
+    "category": "camisetas"
   },
   {
     "id": 3,
