@@ -2,6 +2,9 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const methodOverride = require("method-override");
+const session = require("express-session");
+const cookies = require("cookie-parser");
+const bcrypt = require("bcryptjs");
 
 const app = express();
 
@@ -13,63 +16,133 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 
+app.use(cookies());
+app.use(
+  session({
+    secret: "SecretoSuperSeguroDeStyleHub",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use((req, res, next) => {
+  if (!req.session.userLogged && req.cookies.userEmail) {
+    const usuarios = getUsers();
+    const usuarioRecordado = usuarios.find((u) => u.email === req.cookies.userEmail);
+    
+    if (usuarioRecordado) {
+      delete usuarioRecordado.password;
+      req.session.userLogged = usuarioRecordado;
+    }
+  }
+  next();
+});
+
+app.use((req, res, next) => {
+  res.locals.userLogged = req.session.userLogged || null;
+  next();
+});
+
+const authMiddleware = (req, res, next) => {
+  if (!req.session.userLogged) {
+    return res.redirect("/"); 
+  }
+  next();
+};
+
+const guestMiddleware = (req, res, next) => {
+  if (req.session.userLogged) {
+    return res.redirect("/home"); 
+  }
+  next();
+};
+
 const productsFilePath = path.join(__dirname, "data", "products.json");
+const usersFilePath = path.join(__dirname, "data", "users.json");
 
-const getProducts = () => {
-  const jsonFile = fs.readFileSync(productsFilePath, "utf-8");
-  return JSON.parse(jsonFile);
-};
+const getProducts = () => JSON.parse(fs.readFileSync(productsFilePath, "utf-8"));
+const saveProducts = (productos) => fs.writeFileSync(productsFilePath, JSON.stringify(productos, null, 2));
 
-const saveProducts = (productos) => {
-  fs.writeFileSync(productsFilePath, JSON.stringify(productos, null, 2));
-};
+const getUsers = () => JSON.parse(fs.readFileSync(usersFilePath, "utf-8"));
+const saveUsers = (usuarios) => fs.writeFileSync(usersFilePath, JSON.stringify(usuarios, null, 2));
 
-app.get("/", (req, res) => {
+app.get("/", guestMiddleware, (req, res) => {
   res.render("login");
 });
 
-app.get("/login", (req, res) => {
+app.get("/register", guestMiddleware, (req, res) => {
+  res.render("register");
+});
+
+app.post("/login", guestMiddleware, (req, res) => {
+  const usuarios = getUsers();
+  const { email, password, remember } = req.body;
+
+  const userToLogin = usuarios.find((u) => u.email === email);
+
+  if (userToLogin) {
+    const isPasswordOk = bcrypt.compareSync(password, userToLogin.password);
+    
+    if (isPasswordOk) {
+      delete userToLogin.password; 
+      req.session.userLogged = userToLogin;
+
+      if (remember) {
+        res.cookie("userEmail", userToLogin.email, { maxAge: 1000 * 60 * 60 * 24 * 30 });
+      }
+      return res.redirect("/home");
+    }
+  }
+  return res.redirect("/");
+});
+
+app.post("/register", guestMiddleware, (req, res) => {
+  const usuarios = getUsers();
+  const { fullName, email, password } = req.body;
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  const nuevoUsuario = {
+    id: usuarios.length > 0 ? usuarios[usuarios.length - 1].id + 1 : 1,
+    fullName,
+    email,
+    password: hashedPassword,
+  };
+
+  usuarios.push(nuevoUsuario);
+  saveUsers(usuarios);
   res.redirect("/");
 });
 
-app.get("/home", (req, res) => {
+app.get("/home", authMiddleware, (req, res) => {
   const productos = getProducts();
   res.render("index", { items: productos });
 });
 
-app.get("/register", (req, res) => {
-  res.render("register");
+app.get("/profile", authMiddleware, (req, res) => {
+  res.render("profile");
 });
 
-app.get("/productCart", (req, res) => {
+app.get("/productCart", authMiddleware, (req, res) => {
   res.render("productCart");
 });
 
-app.get("/productDetail/:id", (req, res) => {
+app.get("/productDetail/:id", authMiddleware, (req, res) => {
   const productos = getProducts();
   const producto = productos.find((p) => p.id == req.params.id);
   res.render("productDetail", { producto });
 });
 
-app.get("/create", (req, res) => {
+app.get("/create", authMiddleware, (req, res) => {
   res.render("products/create");
 });
 
-app.get("/edit/:id", (req, res) => {
+app.get("/edit/:id", authMiddleware, (req, res) => {
   const productos = getProducts();
   const producto = productos.find((p) => p.id == req.params.id);
   res.render("products/edit", { product: producto });
 });
 
-app.post("/login", (req, res) => {
-  res.redirect("/home");
-});
-
-app.post("/register", (req, res) => {
-  res.redirect("/");
-});
-
-app.post("/create", (req, res) => {
+app.post("/create", authMiddleware, (req, res) => {
   const productos = getProducts();
   const { name, price, img, description, size, category } = req.body;
 
@@ -88,7 +161,7 @@ app.post("/create", (req, res) => {
   res.redirect("/home");
 });
 
-app.put("/edit/:id", (req, res) => {
+app.put("/edit/:id", authMiddleware, (req, res) => {
   const productos = getProducts();
   const index = productos.findIndex((p) => p.id == req.params.id);
 
@@ -104,15 +177,20 @@ app.put("/edit/:id", (req, res) => {
     };
     saveProducts(productos);
   }
-
   res.redirect("/home");
 });
 
-app.delete("/delete/:id", (req, res) => {
+app.delete("/delete/:id", authMiddleware, (req, res) => {
   let productos = getProducts();
   productos = productos.filter((p) => p.id != req.params.id);
   saveProducts(productos);
   res.redirect("/home");
+});
+
+app.get("/logout", (req, res) => {
+  res.clearCookie("userEmail");
+  req.session.destroy();
+  res.redirect("/");
 });
 
 const PORT = 3000;

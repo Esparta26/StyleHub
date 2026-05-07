@@ -1,19 +1,26 @@
 <header class="border-b border-gray-100 py-6">
   <div class="container mx-auto px-6 flex justify-between items-center">
-    <a
-      href="/home"
-      class="text-3xl font-black italic tracking-tighter uppercase"
-      >StyleHub</a
-    >
-    <nav
-      class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-widest text-gray-500"
-    >
-      <a href="/home" class="transform hover:scale-110 transition">Inicio</a>
-      <a href="/productCart" class="transform hover:scale-110 transition"
-        >Carrito</a
-      >
-      <a href="/create" class="transform hover:scale-110 transition">Crear</a>
-      <a href="/login" class="transform hover:scale-110 transition">Login</a>
+    <a href="/home" class="text-3xl font-black italic tracking-tighter uppercase text-black">
+      StyleHub
+    </a>
+    
+    <nav class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-widest text-gray-500 items-center">
+      <% if (locals.userLogged) { %>
+        <a href="/home" class="transform hover:scale-110 hover:text-black transition">Inicio</a>
+        <a href="/productCart" class="transform hover:scale-110 hover:text-black transition">Carrito</a>
+        <a href="/create" class="transform hover:scale-110 hover:text-black transition">Crear</a>
+        
+        <div class="h-6 w-px bg-gray-300 mx-2"></div> <a href="/profile" class="text-white transform hover:scale-110 transition">
+          Hola, <%= locals.userLogged.fullName.split(' ')[0] %>
+        </a>
+        <a href="/logout" class="text-red-500 transform hover:scale-110 transition">Salir</a>
+      
+      <% } else { %>
+        <a href="/login" class="transform hover:scale-110 hover:text-black transition">Login</a>
+        <a href="/register" class="bg-black text-white px-5 py-2 rounded-lg transform hover:scale-105 transition">
+          Registrarse
+        </a>
+      <% } %>
     </nav>
   </div>
 </header>

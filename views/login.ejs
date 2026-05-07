@@ -1,11 +1,7 @@
-<%- include('./partials/head') %> <%- include('./partials/header') %>
+<%- include('./partials/head') %> 
 
-<main
-  class="container mx-auto px-6 py-20 flex justify-center items-center flex-grow"
->
-  <div
-    class="max-w-md w-full bg-white p-10 rounded-3xl shadow-2xl border border-gray-100"
-  >
+<main class="container mx-auto px-6 py-20 flex justify-center items-center flex-grow bg-gray-50 h-screen">
+  <div class="max-w-md w-full bg-white p-10 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border border-gray-100">
     <div class="text-center mb-10">
       <h2 class="text-4xl font-black tracking-tighter uppercase italic">
         Login
@@ -15,37 +11,25 @@
 
     <form action="/login" method="POST" class="space-y-6">
       <div>
-        <label
-          class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic"
-          >Correo Electrónico</label
-        >
-        <input
-          type="email"
-          name="email"
-          placeholder="ejemplo@correo.com"
-          required
-          class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none"
-        />
+        <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">Correo Electrónico</label>
+        <input type="email" name="email" placeholder="ejemplo@correo.com" required
+          class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none" />
       </div>
 
       <div>
-        <label
-          class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic"
-          >Contraseña</label
-        >
-        <input
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-          class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none"
-        />
+        <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 italic">Contraseña</label>
+        <input type="password" name="password" placeholder="••••••••" required
+          class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black focus:border-black transition outline-none" />
       </div>
 
-      <button
-        type="submit"
-        class="w-full bg-black text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-gray-800 transition shadow-lg transform active:scale-95"
-      >
+      <div class="flex items-center">
+        <input type="checkbox" name="remember" id="remember"
+          class="w-4 h-4 text-black bg-gray-100 border-gray-300 rounded focus:ring-black" />
+        <label for="remember" class="ml-2 text-sm font-medium text-gray-500 italic">Recordar mi sesión</label>
+      </div>
+
+      <button type="submit"
+        class="w-full bg-black text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-gray-800 transition shadow-lg transform active:scale-95">
         Ingresar
       </button>
     </form>
@@ -53,9 +37,7 @@
     <div class="mt-8 text-center">
       <p class="text-gray-500 text-sm">
         ¿No tienes cuenta?
-        <a href="/register" class="text-black font-bold hover:underline italic"
-          >Regístrate aquí</a
-        >
+        <a href="/register" class="text-black font-bold hover:underline italic">Regístrate aquí</a>
       </p>
     </div>
   </div>

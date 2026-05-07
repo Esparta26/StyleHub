@@ -6,5 +6,23 @@
     "email": "raul@stylehub.com",
     "password": "admin123",
     "category": "admin"
+  },
+  {
+    "id": 2,
+    "fullName": "raul andres",
+    "email": "tamalcalienterico@gmail.com",
+    "password": "$2b$10$UT8KxEcHWJ8CDUYAqhHXd.Pg7zEI7X/L0lZn5hiZEFAynJZA6Ye/y"
+  },
+  {
+    "id": 3,
+    "fullName": "marlor",
+    "email": "marlos123@gmail.com",
+    "password": "$2b$10$2Oz/UG3maW2Ow.QJcSdK/etGLaiyuzkW5PoV04LMIg6E7zsM1JQBu"
+  },
+  {
+    "id": 4,
+    "fullName": "andres",
+    "email": "andres@gmail.com",
+    "password": "$2b$10$E.L1i8JzbdbEqw79LSW6KeIWFaD3fm8FlYBBk1gIg46vTb/qxgP8q"
   }
 ]
