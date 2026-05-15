@@ -4,25 +4,39 @@
     "firstName": "Raúl",
     "lastName": "Morales",
     "email": "raul@stylehub.com",
-    "password": "admin123",
-    "category": "admin"
+    "password": "$2b$10$mDdvDJRhJE/4vvdX3z7xEeGZEgKwIpDiM.7Ry1GF7sZWfzUPEV7vi",
+    "role": "admin"
   },
   {
     "id": 2,
-    "fullName": "raul andres",
+    "firstName": "Raul",
+    "lastName": "Andres",
     "email": "tamalcalienterico@gmail.com",
-    "password": "$2b$10$UT8KxEcHWJ8CDUYAqhHXd.Pg7zEI7X/L0lZn5hiZEFAynJZA6Ye/y"
+    "password": "$2b$10$UT8KxEcHWJ8CDUYAqhHXd.Pg7zEI7X/L0lZn5hiZEFAynJZA6Ye/y",
+    "role": "user"
   },
   {
     "id": 3,
-    "fullName": "marlor",
+    "firstName": "Marlor",
+    "lastName": "User",
     "email": "marlos123@gmail.com",
-    "password": "$2b$10$2Oz/UG3maW2Ow.QJcSdK/etGLaiyuzkW5PoV04LMIg6E7zsM1JQBu"
+    "password": "$2b$10$2Oz/UG3maW2Ow.QJcSdK/etGLaiyuzkW5PoV04LMIg6E7zsM1JQBu",
+    "role": "user"
   },
   {
     "id": 4,
-    "fullName": "andres",
+    "firstName": "Andres",
+    "lastName": "User",
     "email": "andres@gmail.com",
-    "password": "$2b$10$E.L1i8JzbdbEqw79LSW6KeIWFaD3fm8FlYBBk1gIg46vTb/qxgP8q"
+    "password": "$2b$10$E.L1i8JzbdbEqw79LSW6KeIWFaD3fm8FlYBBk1gIg46vTb/qxgP8q",
+    "role": "user"
+  },
+  {
+    "id": 5,
+    "firstName": "David",
+    "lastName": "Gómez",
+    "email": "angeldch1018@gmail.com",
+    "password": "$2b$10$MPEDfUqGeP.Vc9tckaPHt.bHT1.AttoQQq3mU3kl00pyF5YAkaZlu",
+    "role": "user"
   }
 ]
